@@ -28,7 +28,6 @@
   flex: 1; /* Automatically takes up the rest of the height */
   overflow-y: auto; /* This becomes your one and only vertical scrollbar */
   position: relative;
-  width: 100%;
 }
 
 /* Ensure the motion div takes up full space */

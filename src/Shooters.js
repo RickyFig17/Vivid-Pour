@@ -153,9 +153,9 @@ function ShootersList() {
       filler3: "N/A",
       glass: "Rocks",
       mixingMethod: "On Ice",
+      garnish: "none",
       description:
         "Kahlua needs to be poured first then the Vodka. Customer must drink through a straw",
-      garnish: "none",
     },
     {
       name: "Alabama Slammer",

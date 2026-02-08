@@ -11,7 +11,7 @@ $text-white: #ffffff;
   align-items: center; // Centers everything horizontally
   padding: 20px 0;
   background-color: $bg-color;
-  border-bottom: 1px solid rgba($violet, 0.2);
+  // border-bottom: 1px solid rgba($violet, 0.2);
   gap: 20px; // Adds consistent space between Logo, Search, and Nav
 
   .header-logo {

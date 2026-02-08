@@ -3,24 +3,25 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Home from "./Home";
-import TwoOzCocktails from "./TwoOzCocktails";
+// import TwoOzCocktails from "./TwoOzCocktails";
 import Header from "./Header";
-import TallDrinks from "./TallDrinks";
-import Highballs from "./Highballs";
-import CreamDrinks from "./CreamDrinks";
-import Martinis from "./Martinis";
-import Sours from "./Sours";
-import Shooters from "./Shooters";
-import WineCocktails from "./WineCocktails";
+// import TallDrinks from "./TallDrinks";
+// import Highballs from "./Highballs";
+// import CreamDrinks from "./CreamDrinks";
+// import Martinis from "./Martinis";
+// import Sours from "./Sours";
+// import Shooters from "./Shooters";
+// import WineCocktails from "./WineCocktails";
 import SplashScreen from "./SplashScreen";
 import BottomBar from "./BottomBar";
+import CocktailCategory from "./CocktailCategory";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const [direction, setDirection] = useState(0);
   const [prevPath, setPrevPath] = useState(location.pathname);
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
 
   const pathOrder = [
     "/",
@@ -101,21 +102,94 @@ function App() {
           >
             <Routes location={location}>
               <Route path="/" element={<Home />} />
-              <Route path="/two-oz-cocktails" element={<TwoOzCocktails searchTerm={searchTerm} />} />
-              <Route path="/tall-drinks" element={<TallDrinks searchTerm={searchTerm} />} />
-              <Route path="/highballs" element={<Highballs searchTerm={searchTerm} />} />
-              <Route path="/cream-drinks" element={<CreamDrinks searchTerm={searchTerm} />} />
-              <Route path="/martinis" element={<Martinis searchTerm={searchTerm} />} />
-              <Route path="/sours" element={<Sours searchTerm={searchTerm} />} />
-              <Route path="/shooters" element={<Shooters searchTerm={searchTerm} />} />
-              <Route path="/wine-cocktails" element={<WineCocktails searchTerm={searchTerm} />} />
+              <Route
+                path="/two-oz-cocktails"
+                element={
+                  <CocktailCategory
+                    type="two-oz"
+                    title="2oz Cocktails"
+                    searchTerm={searchTerm}
+                  />
+                }
+              />
+              <Route
+                path="/tall-drinks"
+                element={
+                  <CocktailCategory
+                    type="tall-drinks"
+                    title="Tall Drinks"
+                    searchTerm={searchTerm}
+                  />
+                }
+              />
+
+              <Route
+                path="/highballs"
+                element={
+                  <CocktailCategory
+                    type="highball"
+                    title="Highballs"
+                    searchTerm={searchTerm}
+                  />
+                }
+              />
+
+              <Route
+                path="/cream-drinks"
+                element={
+                  <CocktailCategory
+                    type="cream"
+                    title="Cream Drinks"
+                    searchTerm={searchTerm}
+                  />
+                }
+              />
+              <Route
+                path="/martinis"
+                element={
+                  <CocktailCategory
+                    type="martini"
+                    title="Martinis"
+                    searchTerm={searchTerm}
+                  />
+                }
+              />
+              <Route
+                path="/sours"
+                element={
+                  <CocktailCategory
+                    type="sour"
+                    title="Sours"
+                    searchTerm={searchTerm}
+                  />
+                }
+              />
+              <Route
+                path="/shooters"
+                element={
+                  <CocktailCategory
+                    type="shooter"
+                    title="Shooters"
+                    searchTerm={searchTerm}
+                  />
+                }
+              />
+              <Route
+                path="/wine-cocktails"
+                element={
+                  <CocktailCategory
+                    type="wine-cocktail"
+                    title="Wine Cocktails"
+                    searchTerm={searchTerm}
+                  />
+                }
+              />
             </Routes>
           </motion.div>
         </AnimatePresence>
       </div>
-      
+
       <BottomBar />
-      
     </div>
   );
 }
