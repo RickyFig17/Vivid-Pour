@@ -8,12 +8,22 @@ const BottomBar = ({ searchTerm, setSearchTerm }) => {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
 
+  const handleSearchClick = () => {
+    setShowSearch(true);
+    navigate("/search");
+  };
+
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
     if (e.target.value.length > 0) {
       navigate("/search");
     }
   };
+  React.useEffect(() => {
+    if (window.location.pathname !== "/search") {
+      setShowSearch(false);
+    }
+  }, [window.location.pathname]);
 
   return (
     <motion.nav
@@ -28,28 +38,40 @@ const BottomBar = ({ searchTerm, setSearchTerm }) => {
     >
       <AnimatePresence>
         {showSearch && (
-          <motion.div
-            className="mobile-search-overlay"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-          >
-            <div className="search-input-container">
-              <input
-                type="text"
-                placeholder="Search cocktails..."
-                autoFocus
-                value={searchTerm || ""}
-                onChange={handleSearchChange}
-              />
-              <button
-                onClick={() => {
-                  setShowSearch(false);
-                  setSearchTerm("");
-                }}
-              ></button>
-            </div>
-          </motion.div>
+          <>
+            <motion.div
+              className="search-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => {
+                setShowSearch(false);
+                setSearchTerm("");
+              }}
+            />
+            <motion.div
+              className="mobile-search-overlay"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+            >
+              <div className="search-input-container">
+                <input
+                  type="text"
+                  placeholder="Search cocktails..."
+                  autoFocus
+                  value={searchTerm || ""}
+                  onChange={handleSearchChange}
+                />
+                <button
+                  onClick={() => {
+                    setShowSearch(false);
+                    setSearchTerm("");
+                  }}
+                ></button>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
 
@@ -76,7 +98,7 @@ const BottomBar = ({ searchTerm, setSearchTerm }) => {
 
         <button
           className={`nav-item ${showSearch ? "active" : ""}`}
-          onClick={() => setShowSearch(!showSearch)}
+          onClick={handleSearchClick}
         >
           <Search size={24} strokeWidth={1.5} />
           <span className="label">Search</span>

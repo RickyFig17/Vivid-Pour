@@ -72,3 +72,27 @@
     }
   }
 }
+
+.search-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+
+.mobile-search-overlay {
+  position: relative;
+  z-index: 2;
+
+  .search-input-container {
+    padding: 15px 20px;
+
+    input {
+      width: 100%;
+    }
+  }
+}
