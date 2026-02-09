@@ -6,7 +6,6 @@ import "./CocktailCategory.scss";
 function CocktailCategory({ type, title, searchTerm }) {
   const [selectedCocktail, setSelectedCocktail] = useState(null);
 
-  // 1. FILTER ENGINE: Get the right category, then check the search bar
   const filteredDrinks = cocktailData
     .filter((drink) => drink.type === type)
     .filter((drink) =>
@@ -46,7 +45,6 @@ function CocktailCategory({ type, title, searchTerm }) {
         )}
       </div>
 
-      {/* 2. THE UNIVERSAL MODAL */}
       <AnimatePresence>
         {selectedCocktail && (
           <motion.div

@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
-import { MdLocalDrink } from "react-icons/md"; //2oz Drinks
-import { MdOutlineLocalDrink } from "react-icons/md"; //Shooters
-import { FaGlassMartiniAlt } from "react-icons/fa"; //Martini
-import { PiChampagneBold } from "react-icons/pi"; //Wine Cocktails
-import { LuCitrus } from "react-icons/lu"; //Sours
-import { PiPintGlassBold } from "react-icons/pi"; //Tall Drinks
-import { MdCoffee } from "react-icons/md"; //Cream Drinks
-import { FaGlassWaterDroplet } from "react-icons/fa6"; // Highballs
+import { MdLocalDrink } from "react-icons/md";
+import { MdOutlineLocalDrink } from "react-icons/md";
+import { FaGlassMartiniAlt } from "react-icons/fa";
+import { PiChampagneBold } from "react-icons/pi";
+import { LuCitrus } from "react-icons/lu";
+import { PiPintGlassBold } from "react-icons/pi";
+import { MdCoffee } from "react-icons/md";
+import { FaGlassWaterDroplet } from "react-icons/fa6";
 
 import { motion } from "framer-motion";
 import "./Navbar.scss";
@@ -17,7 +16,7 @@ function Navbar() {
   const location = useLocation();
 
   const iconMap = {
-    twoOz: <MdLocalDrink />, // Looks like a rocks glass
+    twoOz: <MdLocalDrink />,
     tall: <PiPintGlassBold />,
     highball: <FaGlassWaterDroplet />,
     cream: <MdCoffee />,
@@ -46,7 +45,7 @@ function Navbar() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
-              delay: index * 0.1, // This creates the staggered "wave"
+              delay: index * 0.1,
               duration: 0.5,
               ease: "easeOut",
             }}

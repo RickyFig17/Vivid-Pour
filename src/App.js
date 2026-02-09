@@ -3,15 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Home from "./Home";
-// import TwoOzCocktails from "./TwoOzCocktails";
 import Header from "./Header";
-// import TallDrinks from "./TallDrinks";
-// import Highballs from "./Highballs";
-// import CreamDrinks from "./CreamDrinks";
-// import Martinis from "./Martinis";
-// import Sours from "./Sours";
-// import Shooters from "./Shooters";
-// import WineCocktails from "./WineCocktails";
 import SplashScreen from "./SplashScreen";
 import BottomBar from "./BottomBar";
 import CocktailCategory from "./CocktailCategory";
@@ -40,9 +32,8 @@ function App() {
       setLoading(false);
     }, 2500);
     return () => clearTimeout(timer);
-  }, []); // Empty array means this ONLY runs on first load
+  }, []);
 
-  // --- 2. DIRECTION LOGIC ---
   useEffect(() => {
     const newIdx = pathOrder.indexOf(location.pathname);
     const oldIdx = pathOrder.indexOf(prevPath);
@@ -51,6 +42,7 @@ function App() {
       setDirection(newIdx > oldIdx ? 1 : -1);
       setPrevPath(location.pathname);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname, prevPath]);
 
   const variants = {
