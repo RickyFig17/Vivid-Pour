@@ -7,7 +7,12 @@ function CocktailCategory({ type, title, searchTerm }) {
   const [selectedCocktail, setSelectedCocktail] = useState(null);
 
   const filteredDrinks = cocktailData
-    .filter((drink) => drink.type === type)
+    .filter((drink) => {
+      // If type is "all", let every drink pass through to the search filter
+      if (type === "all") return true;
+      // Otherwise, only show drinks matching this specific category
+      return drink.type === type;
+    })
     .filter((drink) =>
       drink.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );

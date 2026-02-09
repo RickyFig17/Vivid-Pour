@@ -42,7 +42,7 @@ function App() {
       setDirection(newIdx > oldIdx ? 1 : -1);
       setPrevPath(location.pathname);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname, prevPath]);
 
   const variants = {
@@ -94,6 +94,17 @@ function App() {
           >
             <Routes location={location}>
               <Route path="/" element={<Home />} />
+              {/* The "Master" Search Route */}
+              <Route
+                path="/search"
+                element={
+                  <CocktailCategory
+                    type="all"
+                    title="Search Results"
+                    searchTerm={searchTerm}
+                  />
+                }
+              />
               <Route
                 path="/two-oz-cocktails"
                 element={
@@ -181,7 +192,7 @@ function App() {
         </AnimatePresence>
       </div>
 
-      <BottomBar />
+      <BottomBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
     </div>
   );
 }

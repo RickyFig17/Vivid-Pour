@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Home, Heart, Search } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import "./BottomBar.scss";
 
-const BottomBar = () => {
+const BottomBar = ({ searchTerm, setSearchTerm }) => {
   const navigate = useNavigate();
+  const [showSearch, setShowSearch] = useState(false);
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    if (e.target.value.length > 0) {
+      navigate("/search");
+    }
+  };
 
   return (
     <motion.nav
@@ -18,14 +26,41 @@ const BottomBar = () => {
         ease: "easeOut",
       }}
     >
-      <nav className="bottom-bar">
+      <AnimatePresence>
+        {showSearch && (
+          <motion.div
+            className="mobile-search-overlay"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+          >
+            <div className="search-input-container">
+              <input
+                type="text"
+                placeholder="Search cocktails..."
+                autoFocus
+                value={searchTerm || ""}
+                onChange={handleSearchChange}
+              />
+              <button
+                onClick={() => {
+                  setShowSearch(false);
+                  setSearchTerm("");
+                }}
+              ></button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="nav-menu">
         <NavLink
           to="/"
           className={({ isActive }) =>
             isActive ? "nav-item active" : "nav-item"
           }
         >
-          <Home size={24} strokeWidth={1.5} />{" "}
+          <Home size={24} strokeWidth={1.5} />
           <span className="label">Home</span>
         </NavLink>
 
@@ -40,15 +75,13 @@ const BottomBar = () => {
         </NavLink>
 
         <button
-          className="nav-item"
-          onClick={() => {
-            /* Search Logic later */
-          }}
+          className={`nav-item ${showSearch ? "active" : ""}`}
+          onClick={() => setShowSearch(!showSearch)}
         >
           <Search size={24} strokeWidth={1.5} />
           <span className="label">Search</span>
         </button>
-      </nav>
+      </div>
     </motion.nav>
   );
 };

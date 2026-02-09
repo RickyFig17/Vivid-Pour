@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import Navbar from "./Navbar";
 import logo1 from "./assets/Logo1.png";
 import "./Header.scss";
 import BostonShaker from "./BostonShaker";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 
-function Header({searchTerm, setSearchTerm}) {
+function Header({ searchTerm, setSearchTerm }) {
+  const navigate = useNavigate();
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    if (value.length > 0) {
+      navigate("/search");
+    }
+  };
 
   return (
     <div className="header-wrapper">
@@ -33,8 +42,9 @@ function Header({searchTerm, setSearchTerm}) {
           <input
             type="text"
             placeholder="Search cocktails..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={searchTerm || ""}
+            onChange={handleSearchChange}
+            // onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>

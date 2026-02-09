@@ -9,9 +9,42 @@
   backdrop-filter: blur(15px);
   border-top: 1px solid rgba(0, 206, 209, 0.2);
   z-index: 9999;
+  flex-direction: column;
 
   @media (max-width: 480px) {
     display: flex;
+  }
+
+  .mobile-search-overlay {
+    overflow: hidden;
+    width: 100%;
+    border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+
+    .search-input-container {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+
+      input {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(0, 206, 209, 0.3);
+        border-radius: 20px;
+        padding: 8px 15px;
+        color: white;
+        outline: none;
+      }
+
+      button {
+        background: none;
+        border: none;
+      }
+    }
+  }
+
+  .nav-menu {
+    display: flex;
+    width: 100%;
     justify-content: space-around;
     align-items: center;
     padding-bottom: env(safe-area-inset-bottom);
@@ -33,9 +66,6 @@
       color: #00ced1;
     }
 
-    .icon {
-      font-size: 1.4rem;
-    }
     .label {
       font-size: 0.7rem;
       font-weight: 500;
