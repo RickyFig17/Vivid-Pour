@@ -88,3 +88,42 @@
     }
   }
 }
+
+.auth-controls {
+  margin-top: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.3s;
+  }
+
+  .sign-out-btn {
+    color: #00ced1; // Teal
+    &:hover {
+      background: rgba(0, 206, 209, 0.1);
+    }
+  }
+
+  .delete-account-btn {
+    color: #ff4d4d; // Red
+    font-size: 0.8rem;
+    opacity: 0.7;
+    &:hover {
+      opacity: 1;
+      background: rgba(255, 77, 77, 0.1);
+    }
+  }
+}

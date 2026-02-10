@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, User, LogIn, Heart, Settings } from "lucide-react";
+import {
+  Menu,
+  User,
+  LogIn,
+  Heart,
+  Settings,
+  LogOut,
+  Trash2,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "./supabaseClient";
 import UserAvatar from "./UserAvatar";
@@ -29,6 +37,43 @@ const HamburgerMenu = () => {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      alert("Error signing out: " + error.message);
+    } else {
+      navigate("/");
+      if (setIsOpen) setIsOpen(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure? This will permanently delete your favorite cocktails. This cannot be undone.",
+    );
+
+    if (confirmDelete) {
+      try {
+        const { error: dataError } = await supabase
+          .from("favorites")
+          .delete()
+          .eq("user_id", user.id);
+
+        if (dataError) throw dataError;
+
+        const { error: authError } = await supabase.auth.signOut();
+
+        if (authError) throw authError;
+        setIsOpen(false);
+        navigate("/");
+        alert("Account data deleted and you have been signed out.");
+      } catch (error) {
+        console.error("Error during deletion:", error.message);
+        alert("Something went wrong. Please try signing out manually.");
+      }
+    }
+  };
 
   return (
     <>
@@ -85,6 +130,20 @@ const HamburgerMenu = () => {
                   <Settings size={20} /> <span>Settings</span>
                 </button>
               </div>
+
+              {user && (
+                <div className="auth-controls">
+                  <button onClick={handleSignOut} className="sign-out-btn">
+                    <LogOut size={18} /> <span>Sign Out</span>
+                  </button>
+                  <button
+                    onClick={handleDeleteAccount}
+                    className="delete-account-btn"
+                  >
+                    <Trash2 size={16} /> <span>Delete Account</span>
+                  </button>
+                </div>
+              )}
             </motion.div>
           </>
         )}
