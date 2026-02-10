@@ -71,6 +71,13 @@
       font-weight: 500;
     }
   }
+
+  .nav-item {
+    .vivid-avatar {
+      margin-bottom: 4px; // Spacing between avatar and "Profile" label
+      flex-shrink: 0; // Prevents the circle from becoming an oval
+    }
+  }
 }
 
 .search-backdrop {

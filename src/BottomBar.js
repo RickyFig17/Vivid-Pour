@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Home, Heart, Search, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "./supabaseClient";
+import UserAvatar from "./UserAvatar";
 import "./BottomBar.scss";
 
 const BottomBar = ({ searchTerm, setSearchTerm }) => {
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
+  const [user, setUser] = useState(null);
 
   const handleSearchClick = () => {
     setShowSearch(true);
@@ -24,6 +27,22 @@ const BottomBar = ({ searchTerm, setSearchTerm }) => {
       setShowSearch(false);
     }
   }, [window.location.pathname]);
+
+  useEffect(() => {
+    // 1. Get the current user session immediately
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // 2. Listen for login/logout events to update the UI in real-time
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <motion.nav
@@ -96,14 +115,13 @@ const BottomBar = ({ searchTerm, setSearchTerm }) => {
           <span className="label">Favorites</span>
         </NavLink>
 
-        <NavLink
-          to="/login"
-          className={({ isActive }) =>
-            isActive ? "nav-item active" : "nav-item"
-          }
-        >
-          <User size={24} strokeWidth={1.5} />
-          <span className="label">Profile</span>
+        <NavLink to={user ? "/profile" : "/login"} className="nav-item">
+          {user ? (
+            <UserAvatar name={user.user_metadata?.full_name} size="28px" />
+          ) : (
+            <User size={24} />
+          )}
+          <span className="label">{user ? "Profile" : "Sign In"}</span>
         </NavLink>
 
         <button

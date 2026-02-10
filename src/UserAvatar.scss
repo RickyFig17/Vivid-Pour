@@ -1,0 +1,20 @@
+.vivid-avatar {
+  background: linear-gradient(135deg, #0f0f14 0%, #1a1a2e 100%);
+  color: #00ced1;
+  border: 1px solid rgba(0, 206, 209, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  letter-spacing: 1px;
+  box-shadow: 0 0 15px rgba(0, 206, 209, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #ff007f;
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
+    color: #fff;
+  }
+}
