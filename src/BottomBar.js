@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Home, Heart, Search } from "lucide-react";
+import { Home, Heart, Search, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./BottomBar.scss";
 
@@ -94,6 +94,16 @@ const BottomBar = ({ searchTerm, setSearchTerm }) => {
         >
           <Heart size={24} strokeWidth={1.5} />
           <span className="label">Favorites</span>
+        </NavLink>
+
+        <NavLink
+          to="/login"
+          className={({ isActive }) =>
+            isActive ? "nav-item active" : "nav-item"
+          }
+        >
+          <User size={24} strokeWidth={1.5} />
+          <span className="label">Profile</span>
         </NavLink>
 
         <button

@@ -1,0 +1,90 @@
+.hamburger-trigger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10001; // Sits above everything
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 10002;
+}
+
+.menu-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px; // Mobile friendly width
+  max-width: 80%;
+  height: 100vh;
+  background: rgba(15, 15, 20, 0.95);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(0, 206, 209, 0.2);
+  z-index: 10003;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+
+    .vivid-logo {
+      color: #00ced1;
+      letter-spacing: 4px;
+      font-size: 1.5rem;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #ff007f; // Neon Pink for contrast
+    }
+  }
+
+  .drawer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    button {
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 10px 0;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #00ced1;
+      }
+
+      span {
+        letter-spacing: 1px;
+      }
+    }
+
+    .divider {
+      border: 0;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 10px 0;
+    }
+  }
+}

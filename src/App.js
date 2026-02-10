@@ -7,6 +7,8 @@ import Header from "./Header";
 import SplashScreen from "./SplashScreen";
 import BottomBar from "./BottomBar";
 import CocktailCategory from "./CocktailCategory";
+import HamburgerMenu from "./HamburgerMenu";
+import Login from "./Login"; // Adjust path if it's in /components
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -62,6 +64,7 @@ function App() {
 
   return (
     <div className="App">
+      <HamburgerMenu />
       <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <AnimatePresence mode="wait">
         {loading ? (
@@ -94,7 +97,6 @@ function App() {
           >
             <Routes location={location}>
               <Route path="/" element={<Home />} />
-              {/* The "Master" Search Route */}
               <Route
                 path="/search"
                 element={
@@ -105,6 +107,12 @@ function App() {
                   />
                 }
               />
+              {/* 2. ADD THIS LINE */}
+              <Route path="/login" element={<Login />} />
+
+              {/* Add a /signup alias if you want, pointing to the same place */}
+              <Route path="/signup" element={<Login />} />
+
               <Route
                 path="/two-oz-cocktails"
                 element={
@@ -187,6 +195,7 @@ function App() {
                   />
                 }
               />
+              
             </Routes>
           </motion.div>
         </AnimatePresence>
