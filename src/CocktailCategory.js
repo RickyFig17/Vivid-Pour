@@ -8,9 +8,7 @@ function CocktailCategory({ type, title, searchTerm }) {
 
   const filteredDrinks = cocktailData
     .filter((drink) => {
-      // If type is "all", let every drink pass through to the search filter
       if (type === "all") return true;
-      // Otherwise, only show drinks matching this specific category
       return drink.type === type;
     })
     .filter((drink) =>
@@ -143,6 +141,12 @@ function CocktailCategory({ type, title, searchTerm }) {
                       selectedCocktail.filler3 !== "N/A" && (
                         <li>
                           <strong>Mixer 3:</strong> {selectedCocktail.filler3}
+                        </li>
+                      )}
+                      {selectedCocktail.top &&
+                      selectedCocktail.top !== "N/A" && (
+                        <li>
+                          <strong>Top:</strong> {selectedCocktail.top}
                         </li>
                       )}
                   </ul>
