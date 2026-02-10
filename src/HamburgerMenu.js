@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, User, LogIn, Heart, Settings } from "lucide-react";
+import { Menu, User, LogIn, Heart, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "./supabaseClient";
 import UserAvatar from "./UserAvatar";
@@ -10,7 +10,6 @@ const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleNav = (path, mode) => {
@@ -19,12 +18,9 @@ const HamburgerMenu = () => {
   };
 
   useEffect(() => {
-    // 1. Get the current user session immediately
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
     });
-
-    // 2. Listen for login/logout events to update the UI in real-time
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {

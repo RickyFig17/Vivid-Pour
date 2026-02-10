@@ -107,10 +107,8 @@ function App() {
                   />
                 }
               />
-              {/* 2. ADD THIS LINE */}
               <Route path="/login" element={<Login />} />
 
-              {/* Add a /signup alias if you want, pointing to the same place */}
               <Route path="/signup" element={<Login />} />
 
               <Route
@@ -195,7 +193,6 @@ function App() {
                   />
                 }
               />
-              
             </Routes>
           </motion.div>
         </AnimatePresence>
