@@ -3,15 +3,24 @@ import { motion } from "framer-motion";
 import FavoriteButton from "./FavoriteButton";
 import "./Favorites.scss";
 
-function Favorites({ favorites, onToggle }) {
+function Favorites({ favorites, onToggle, onClear }) {
   return (
     <div className="category-page">
-      <motion.h2
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        Your Favorites
-      </motion.h2>
+      <div className="favorites-header">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          Your Favorites
+        </motion.h2>
+
+        {/* Only show Clear All if there are favorites */}
+        {favorites.length > 0 && (
+          <button className="clear-all-btn" onClick={onClear}>
+            Clear All
+          </button>
+        )}
+      </div>
 
       <div className="cocktail-list">
         {favorites && favorites.length > 0 ? (

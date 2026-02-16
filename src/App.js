@@ -75,6 +75,12 @@ function App() {
     });
   };
 
+  const clearFavorites = () => {
+    if (window.confirm("Are you sure you want to clear all favorites?")) {
+      setFavorites([]);
+    }
+  };
+
   return (
     <div className="App">
       <HamburgerMenu />
@@ -113,7 +119,11 @@ function App() {
               <Route
                 path="/favorites"
                 element={
-                  <Favorites favorites={favorites} onToggle={toggleFavorite} />
+                  <Favorites
+                    favorites={favorites}
+                    onToggle={toggleFavorite}
+                    onClear={clearFavorites}
+                  />
                 }
               />
               <Route
