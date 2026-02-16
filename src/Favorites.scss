@@ -1,0 +1,42 @@
+@import "./CocktailCategory.scss";
+
+.no-favs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+
+  p {
+    color: #b4b5b8;
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    font-style: italic;
+  }
+
+  .explore-btn {
+    background: transparent;
+    border: 2px solid $pink;
+    color: $pink;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba($pink, 0.2);
+
+    &:hover {
+      background: $pink;
+      color: white;
+      box-shadow: 0 0 20px rgba($pink, 0.5);
+      transform: translateY(-3px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}

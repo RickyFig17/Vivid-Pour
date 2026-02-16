@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import cocktailData from "./Cocktails.json";
+import FavoriteButton from "./FavoriteButton";
 import "./CocktailCategory.scss";
 
-function CocktailCategory({ type, title, searchTerm }) {
+function CocktailCategory({ type, title, searchTerm, favorites, onToggle }) {
   const [selectedCocktail, setSelectedCocktail] = useState(null);
-
   const filteredDrinks = cocktailData
     .filter((drink) => {
       if (type === "all") return true;
@@ -41,6 +41,13 @@ function CocktailCategory({ type, title, searchTerm }) {
                 <img src={cocktail.image} alt={cocktail.name} />
               </div>
               <h3>{cocktail.name}</h3>
+              <div className="card-fav-container">
+                <FavoriteButton
+                  cocktail={cocktail}
+                  favorites={favorites}
+                  onToggle={onToggle}
+                />
+              </div>
             </motion.div>
           ))
         ) : (
@@ -76,7 +83,14 @@ function CocktailCategory({ type, title, searchTerm }) {
                   alt={selectedCocktail.name}
                   className="modal-cocktail-img"
                 />
-                <h2>{selectedCocktail.name}</h2>
+                <div className="title-row">
+                  <h2>{selectedCocktail.name}</h2>
+                  <FavoriteButton
+                    cocktail={selectedCocktail}
+                    favorites={favorites}
+                    onToggle={onToggle}
+                  />
+                </div>
               </div>
 
               <div className="modal-grid">
@@ -143,12 +157,11 @@ function CocktailCategory({ type, title, searchTerm }) {
                           <strong>Mixer 3:</strong> {selectedCocktail.filler3}
                         </li>
                       )}
-                      {selectedCocktail.top &&
-                      selectedCocktail.top !== "N/A" && (
-                        <li>
-                          <strong>Top:</strong> {selectedCocktail.top}
-                        </li>
-                      )}
+                    {selectedCocktail.top && selectedCocktail.top !== "N/A" && (
+                      <li>
+                        <strong>Top:</strong> {selectedCocktail.top}
+                      </li>
+                    )}
                   </ul>
                 </div>
 

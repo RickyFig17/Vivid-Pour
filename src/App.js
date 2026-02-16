@@ -8,7 +8,8 @@ import SplashScreen from "./SplashScreen";
 import BottomBar from "./BottomBar";
 import CocktailCategory from "./CocktailCategory";
 import HamburgerMenu from "./HamburgerMenu";
-import Login from "./Login"; // Adjust path if it's in /components
+import Login from "./Login";
+import Favorites from "./Favorites";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -16,6 +17,7 @@ function App() {
   const [direction, setDirection] = useState(0);
   const [prevPath, setPrevPath] = useState(location.pathname);
   const [searchTerm, setSearchTerm] = useState("");
+  const [favorites, setFavorites] = useState([]);
 
   const pathOrder = [
     "/",
@@ -62,6 +64,17 @@ function App() {
     }),
   };
 
+  const toggleFavorite = (cocktail) => {
+    setFavorites((prev) => {
+      const isAlreadyFav = prev.find((fav) => fav.id === cocktail.id);
+      if (isAlreadyFav) {
+        return prev.filter((fav) => fav.id !== cocktail.id);
+      } else {
+        return [...prev, cocktail];
+      }
+    });
+  };
+
   return (
     <div className="App">
       <HamburgerMenu />
@@ -98,12 +111,30 @@ function App() {
             <Routes location={location}>
               <Route path="/" element={<Home />} />
               <Route
+                path="/favorites"
+                element={
+                  <Favorites favorites={favorites} onToggle={toggleFavorite} />
+                }
+              />
+              <Route
+                path="/category/:type"
+                element={
+                  <CocktailCategory
+                    favorites={favorites}
+                    onToggle={toggleFavorite}
+                    searchTerm={searchTerm}
+                  />
+                }
+              />
+              <Route
                 path="/search"
                 element={
                   <CocktailCategory
                     type="all"
                     title="Search Results"
                     searchTerm={searchTerm}
+                    favorites={favorites}
+                    onToggle={toggleFavorite}
                   />
                 }
               />
@@ -118,6 +149,8 @@ function App() {
                     type="two-oz"
                     title="2oz Cocktails"
                     searchTerm={searchTerm}
+                    favorites={favorites}
+                    onToggle={toggleFavorite}
                   />
                 }
               />
@@ -128,6 +161,8 @@ function App() {
                     type="tall-drinks"
                     title="Tall Drinks"
                     searchTerm={searchTerm}
+                    favorites={favorites}
+                    onToggle={toggleFavorite}
                   />
                 }
               />
@@ -139,6 +174,8 @@ function App() {
                     type="highball"
                     title="Highballs"
                     searchTerm={searchTerm}
+                    favorites={favorites}
+                    onToggle={toggleFavorite}
                   />
                 }
               />
@@ -150,6 +187,8 @@ function App() {
                     type="cream"
                     title="Cream Drinks"
                     searchTerm={searchTerm}
+                    favorites={favorites}
+                    onToggle={toggleFavorite}
                   />
                 }
               />
@@ -160,6 +199,8 @@ function App() {
                     type="martini"
                     title="Martinis"
                     searchTerm={searchTerm}
+                    favorites={favorites}
+                    onToggle={toggleFavorite}
                   />
                 }
               />
@@ -170,6 +211,8 @@ function App() {
                     type="sour"
                     title="Sours"
                     searchTerm={searchTerm}
+                    favorites={favorites}
+                    onToggle={toggleFavorite}
                   />
                 }
               />
@@ -180,6 +223,8 @@ function App() {
                     type="shooter"
                     title="Shooters"
                     searchTerm={searchTerm}
+                    favorites={favorites}
+                    onToggle={toggleFavorite}
                   />
                 }
               />
@@ -190,6 +235,8 @@ function App() {
                     type="wine-cocktail"
                     title="Wine Cocktails"
                     searchTerm={searchTerm}
+                    favorites={favorites}
+                    onToggle={toggleFavorite}
                   />
                 }
               />
