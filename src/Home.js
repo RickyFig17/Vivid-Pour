@@ -27,6 +27,7 @@ const Home = () => {
             autoPlay
             muted
             playsInline
+            webkit-playsinline="true"
             onEnded={nextVideo}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -48,7 +49,7 @@ const Home = () => {
         <p className="vivid-subtitle">The Art of the Cocktail</p>
         <button
           className="explore-btn"
-          oncClick={() => navigate("/two-oz-cocktails")}
+          onClick={() => navigate("/two-oz-cocktails")}
         >
           Start Exploring
         </button>
