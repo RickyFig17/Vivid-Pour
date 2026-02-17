@@ -7,26 +7,19 @@ const videoList = [
   {
     desktop: "/videos/bluepour_desktop.mp4",
     mobile: "/videos/purplepour_mobile.mp4",
-    color_desktop: "#00ced1",
-    color_mobile: "#ab00d1",
+
   },
   {
     desktop: "/videos/icecubes_desktop.mp4",
     mobile: "/videos/jigger_mobile.mp4",
-    color_desktop: "#ffaa00",
-    color_mobile: "#ffaa00",
   },
   {
     desktop: "/videos/redpour_desktop.mp4",
     mobile: "/videos/wine_mobile.mp4",
-    color_desktop: "#ff4d4d",
-    color_mobile: "#ff4d4d",
   },
   {
     desktop: "/videos/smoke_desktop.mp4",
     mobile: "/videos/bartenderpour_mobile.mp4",
-    color_desktop: "#ea7e03",
-    color_mobile: "#ffaa00",
   },
 ];
 
