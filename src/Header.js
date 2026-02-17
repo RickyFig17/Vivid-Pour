@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import Navbar from "./Navbar";
 import logo1 from "./assets/Logo1.png";
 import "./Header.scss";
-import BostonShaker from "./BostonShaker";
 import { Link, useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 
@@ -21,9 +20,6 @@ function Header({ searchTerm, setSearchTerm }) {
   return (
     <div className="header-wrapper">
       <div className="header-container">
-        {/* <div className="shaker-container">
-          <BostonShaker />
-        </div> */}
         <motion.div
           className="logo-container"
           initial={{ opacity: 0, y: -10 }}
@@ -38,13 +34,11 @@ function Header({ searchTerm, setSearchTerm }) {
       <div className="desktop-search-wrapper">
         <div className="search-bar">
           <Search size={24} strokeWidth={1.5} color={"#888"} />
-          {/* <span className="search-icon"></span> */}
           <input
             type="text"
             placeholder="Search cocktails..."
             value={searchTerm || ""}
             onChange={handleSearchChange}
-            // onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>

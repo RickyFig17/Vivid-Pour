@@ -2,7 +2,7 @@
   position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 10001; // Sits above everything
+  z-index: 1001;
   background: none;
   border: none;
   cursor: pointer;
@@ -24,7 +24,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 300px; // Mobile friendly width
+  width: 300px;
   max-width: 80%;
   height: 100vh;
   background: rgba(15, 15, 20, 0.95);
@@ -50,7 +50,7 @@
     .close-btn {
       background: none;
       border: none;
-      color: #ff007f; // Neon Pink for contrast
+      color: #ff007f;
     }
   }
 
@@ -111,14 +111,14 @@
   }
 
   .sign-out-btn {
-    color: #00ced1; // Teal
+    color: #00ced1;
     &:hover {
       background: rgba(0, 206, 209, 0.1);
     }
   }
 
   .delete-account-btn {
-    color: #ff4d4d; // Red
+    color: #ff4d4d;
     font-size: 0.8rem;
     opacity: 0.7;
     &:hover {

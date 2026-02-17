@@ -77,6 +77,15 @@ const HamburgerMenu = () => {
 
   return (
     <>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          delay: 2.0,
+          duration: 0.8,
+          ease: "easeOut",
+        }}
+      ></motion.div>
       <button className="hamburger-trigger" onClick={toggleMenu}>
         <Menu size={32} color={isOpen ? "transparent" : "#00ced1"} />
       </button>
