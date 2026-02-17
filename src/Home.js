@@ -1,33 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Home.scss";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const videoList = [
-  "/videos/bluepour.mp4",
-  "/videos/icecubes.mp4",
-  "/videos/redpour.mp4",
+  {
+    desktop: "/videos/bluepour_desktop.mp4",
+    mobile: "/videos/purplepour_mobile.mp4",
+  },
+  {
+    desktop: "/videos/icecubes_desktop.mp4",
+    mobile: "/videos/jigger_mobile.mp4",
+  },
+  {
+    desktop: "/videos/redpour_desktop.mp4",
+    mobile: "/videos/wine_mobile.mp4",
+  },
+  {
+    desktop: "/videos/smoke_desktop.mp4",
+    mobile: "/videos/bartenderpour_mobile.mp4",
+  },
 ];
 
 const Home = () => {
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const nextVideo = () => {
     setIndex((prevIndex) => (prevIndex + 1) % videoList.length);
   };
+
+  const currentVideo = isMobile
+    ? videoList[index].mobile
+    : videoList[index].desktop;
 
   return (
     <div className="home-container">
       <div className="video-wrapper">
         <AnimatePresence mode="wait">
           <motion.video
-            key={videoList[index]}
-            src={videoList[index]}
+            key={currentVideo} // Key change triggers the fade animation
+            src={currentVideo}
             autoPlay
             muted
             playsInline
-            webkit-playsinline="true"
             onEnded={nextVideo}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
