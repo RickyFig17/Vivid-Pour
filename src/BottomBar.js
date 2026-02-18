@@ -29,12 +29,9 @@ const BottomBar = ({ searchTerm, setSearchTerm }) => {
   }, [window.location.pathname]);
 
   useEffect(() => {
-    // 1. Get the current user session immediately
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
     });
-
-    // 2. Listen for login/logout events to update the UI in real-time
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {

@@ -7,7 +7,6 @@ const videoList = [
   {
     desktop: "/videos/bluepour_desktop.mp4",
     mobile: "/videos/purplepour_mobile.mp4",
-
   },
   {
     desktop: "/videos/icecubes_desktop.mp4",

@@ -22,7 +22,6 @@ const Login = () => {
 
     try {
       if (isSignUp) {
-        // --- SIGN UP LOGIC ---
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
@@ -33,13 +32,12 @@ const Login = () => {
         if (error) throw error;
         alert("Check your email for a confirmation link!");
       } else {
-        // --- SIGN IN LOGIC ---
         const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
         if (error) throw error;
-        navigate("/"); // Redirect to home on success
+        navigate("/");
       }
     } catch (error) {
       alert(error.message);

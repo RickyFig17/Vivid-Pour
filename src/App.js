@@ -10,6 +10,7 @@ import CocktailCategory from "./CocktailCategory";
 import HamburgerMenu from "./HamburgerMenu";
 import Login from "./Login";
 import Favorites from "./Favorites";
+import { AuthProvider } from "./AuthContext";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -114,143 +115,145 @@ function App() {
               opacity: { duration: 0.3 },
             }}
           >
-            <Routes location={location}>
-              <Route path="/" element={<Home />} />
-              <Route
-                path="/favorites"
-                element={
-                  <Favorites
-                    favorites={favorites}
-                    onToggle={toggleFavorite}
-                    onClear={clearFavorites}
-                  />
-                }
-              />
-              <Route
-                path="/category/:type"
-                element={
-                  <CocktailCategory
-                    favorites={favorites}
-                    onToggle={toggleFavorite}
-                    searchTerm={searchTerm}
-                  />
-                }
-              />
-              <Route
-                path="/search"
-                element={
-                  <CocktailCategory
-                    type="all"
-                    title="Search Results"
-                    searchTerm={searchTerm}
-                    favorites={favorites}
-                    onToggle={toggleFavorite}
-                  />
-                }
-              />
-              <Route path="/login" element={<Login />} />
+            <AuthProvider>
+              <Routes location={location}>
+                <Route path="/" element={<Home />} />
+                <Route
+                  path="/favorites"
+                  element={
+                    <Favorites
+                      favorites={favorites}
+                      onToggle={toggleFavorite}
+                      onClear={clearFavorites}
+                    />
+                  }
+                />
+                <Route
+                  path="/category/:type"
+                  element={
+                    <CocktailCategory
+                      favorites={favorites}
+                      onToggle={toggleFavorite}
+                      searchTerm={searchTerm}
+                    />
+                  }
+                />
+                <Route
+                  path="/search"
+                  element={
+                    <CocktailCategory
+                      type="all"
+                      title="Search Results"
+                      searchTerm={searchTerm}
+                      favorites={favorites}
+                      onToggle={toggleFavorite}
+                    />
+                  }
+                />
+                <Route path="/login" element={<Login />} />
 
-              <Route path="/signup" element={<Login />} />
+                <Route path="/signup" element={<Login />} />
 
-              <Route
-                path="/two-oz-cocktails"
-                element={
-                  <CocktailCategory
-                    type="two-oz"
-                    title="2oz Cocktails"
-                    searchTerm={searchTerm}
-                    favorites={favorites}
-                    onToggle={toggleFavorite}
-                  />
-                }
-              />
-              <Route
-                path="/tall-drinks"
-                element={
-                  <CocktailCategory
-                    type="tall-drinks"
-                    title="Tall Drinks"
-                    searchTerm={searchTerm}
-                    favorites={favorites}
-                    onToggle={toggleFavorite}
-                  />
-                }
-              />
+                <Route
+                  path="/two-oz-cocktails"
+                  element={
+                    <CocktailCategory
+                      type="two-oz"
+                      title="2oz Cocktails"
+                      searchTerm={searchTerm}
+                      favorites={favorites}
+                      onToggle={toggleFavorite}
+                    />
+                  }
+                />
+                <Route
+                  path="/tall-drinks"
+                  element={
+                    <CocktailCategory
+                      type="tall-drinks"
+                      title="Tall Drinks"
+                      searchTerm={searchTerm}
+                      favorites={favorites}
+                      onToggle={toggleFavorite}
+                    />
+                  }
+                />
 
-              <Route
-                path="/highballs"
-                element={
-                  <CocktailCategory
-                    type="highball"
-                    title="Highballs"
-                    searchTerm={searchTerm}
-                    favorites={favorites}
-                    onToggle={toggleFavorite}
-                  />
-                }
-              />
+                <Route
+                  path="/highballs"
+                  element={
+                    <CocktailCategory
+                      type="highball"
+                      title="Highballs"
+                      searchTerm={searchTerm}
+                      favorites={favorites}
+                      onToggle={toggleFavorite}
+                    />
+                  }
+                />
 
-              <Route
-                path="/cream-drinks"
-                element={
-                  <CocktailCategory
-                    type="cream"
-                    title="Cream Drinks"
-                    searchTerm={searchTerm}
-                    favorites={favorites}
-                    onToggle={toggleFavorite}
-                  />
-                }
-              />
-              <Route
-                path="/martinis"
-                element={
-                  <CocktailCategory
-                    type="martini"
-                    title="Martinis"
-                    searchTerm={searchTerm}
-                    favorites={favorites}
-                    onToggle={toggleFavorite}
-                  />
-                }
-              />
-              <Route
-                path="/sours"
-                element={
-                  <CocktailCategory
-                    type="sour"
-                    title="Sours"
-                    searchTerm={searchTerm}
-                    favorites={favorites}
-                    onToggle={toggleFavorite}
-                  />
-                }
-              />
-              <Route
-                path="/shooters"
-                element={
-                  <CocktailCategory
-                    type="shooter"
-                    title="Shooters"
-                    searchTerm={searchTerm}
-                    favorites={favorites}
-                    onToggle={toggleFavorite}
-                  />
-                }
-              />
-              <Route
-                path="/wine-cocktails"
-                element={
-                  <CocktailCategory
-                    type="wine-cocktail"
-                    title="Wine Cocktails"
-                    searchTerm={searchTerm}
-                    favorites={favorites}
-                    onToggle={toggleFavorite}
-                  />
-                }
-              />
-            </Routes>
+                <Route
+                  path="/cream-drinks"
+                  element={
+                    <CocktailCategory
+                      type="cream"
+                      title="Cream Drinks"
+                      searchTerm={searchTerm}
+                      favorites={favorites}
+                      onToggle={toggleFavorite}
+                    />
+                  }
+                />
+                <Route
+                  path="/martinis"
+                  element={
+                    <CocktailCategory
+                      type="martini"
+                      title="Martinis"
+                      searchTerm={searchTerm}
+                      favorites={favorites}
+                      onToggle={toggleFavorite}
+                    />
+                  }
+                />
+                <Route
+                  path="/sours"
+                  element={
+                    <CocktailCategory
+                      type="sour"
+                      title="Sours"
+                      searchTerm={searchTerm}
+                      favorites={favorites}
+                      onToggle={toggleFavorite}
+                    />
+                  }
+                />
+                <Route
+                  path="/shooters"
+                  element={
+                    <CocktailCategory
+                      type="shooter"
+                      title="Shooters"
+                      searchTerm={searchTerm}
+                      favorites={favorites}
+                      onToggle={toggleFavorite}
+                    />
+                  }
+                />
+                <Route
+                  path="/wine-cocktails"
+                  element={
+                    <CocktailCategory
+                      type="wine-cocktail"
+                      title="Wine Cocktails"
+                      searchTerm={searchTerm}
+                      favorites={favorites}
+                      onToggle={toggleFavorite}
+                    />
+                  }
+                />
+              </Routes>
+            </AuthProvider>
           </motion.div>
         </AnimatePresence>
       </div>

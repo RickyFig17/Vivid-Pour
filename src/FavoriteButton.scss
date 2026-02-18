@@ -25,7 +25,6 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  // transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: transform 0.2s ease;
 
   &.error-shake {
@@ -33,7 +32,7 @@
     .heart-icon {
       color: #ff4d4d !important;
       stroke: #ff4d4d !important;
-      fill: none !important; // Don't fill it red, just the outline
+      fill: none !important;
       filter: drop-shadow(0 0 12px #ff4d4d) !important;
     }
   }

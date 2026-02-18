@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #0b0e14; // Your deep dark background
+  background: #0b0e14;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@
   overflow: hidden;
 
   .splash-logo {
-    width: 200px; // Adjust based on your logo shape
+    width: 200px;
     height: auto;
     position: relative;
     z-index: 2;

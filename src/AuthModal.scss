@@ -1,0 +1,98 @@
+.auth-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+}
+
+.auth-modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 400px;
+  background: rgba(10, 10, 12, 0.9);
+  border: 1px solid rgba(0, 206, 209, 0.3);
+  border-radius: 20px;
+  padding: 40px 20px;
+  z-index: 2001;
+  text-align: center;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(0, 206, 209, 0.1);
+
+  .modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .icon-glow {
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(0, 206, 209, 0.5));
+  }
+
+  h2 {
+    color: #fff;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  p {
+    color: #aaa;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+
+  .modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    button {
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: #00ced1;
+      border: none;
+      color: #000;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 206, 209, 0.3);
+
+      &:hover {
+        box-shadow: 0 0 25px rgba(0, 206, 209, 0.6);
+        transform: translateY(-2px);
+        background: #00e5e8;
+      }
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid #00ced1;
+      color: #00ced1;
+      &:hover {
+        background: rgba(0, 206, 209, 0.1);
+      }
+    }
+  }
+}
