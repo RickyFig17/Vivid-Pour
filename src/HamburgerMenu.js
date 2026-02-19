@@ -5,7 +5,7 @@ import {
   User,
   LogIn,
   Heart,
-  Settings,
+  BookOpenText,
   LogOut,
   Trash2,
 } from "lucide-react";
@@ -135,8 +135,8 @@ const HamburgerMenu = () => {
                 <button onClick={() => handleNav("/favorites")}>
                   <Heart size={20} /> <span>My Favorites</span>
                 </button>
-                <button onClick={() => handleNav("/settings")}>
-                  <Settings size={20} /> <span>Settings</span>
+                <button onClick={() => handleNav("/history")}>
+                  <BookOpenText size={20} /> <span>History</span>
                 </button>
               </div>
 

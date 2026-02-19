@@ -13,8 +13,7 @@ function Favorites({ favorites, onToggle, onClear }) {
         >
           Your Favorites
         </motion.h2>
-
-        {/* Only show Clear All if there are favorites */}
+        
         {favorites.length > 0 && (
           <button className="clear-all-btn" onClick={onClear}>
             Clear All
