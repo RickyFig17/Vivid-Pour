@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "./supabaseClient"; // Ensure this path matches your file
+import { supabase } from "./supabaseClient";
 import AuthModal from "./AuthModal";
 
 const AuthContext = createContext();
@@ -10,14 +10,11 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  // 1. Monitor Auth State
   useEffect(() => {
-    // Check current session on load
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
     });
 
-    // Listen for sign-in/sign-out events
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -27,7 +24,6 @@ export const AuthProvider = ({ children }) => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // 2. Modal Logic
   const openAuthModal = () => setIsModalOpen(true);
   const closeAuthModal = () => setIsModalOpen(false);
 

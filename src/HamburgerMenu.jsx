@@ -18,10 +18,14 @@ import "./HamburgerMenu.scss";
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showSignOutConfirm, setShowSignOutConfirm] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuthPrompt();
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    setShowSignOutConfirm(false);
+  };
 
   const handleNav = (path, mode) => {
     navigate(path, { state: { startInSignUp: mode === "signup" } });
@@ -47,7 +51,6 @@ const HamburgerMenu = () => {
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Transparent backdrop to catch clicks outside the menu */}
             <motion.div
               className="dropdown-backdrop"
               initial={{ opacity: 0 }}
@@ -99,15 +102,11 @@ const HamburgerMenu = () => {
               {user && (
                 <div className="dropdown-footer">
                   <hr className="divider" />
+
                   <button onClick={handleSignOut} className="sign-out-btn">
                     <LogOut size={16} /> <span>Sign Out</span>
                   </button>
-                  <button
-                    onClick={() => {
-                      /* delete logic */
-                    }}
-                    className="delete-btn"
-                  >
+                  <button onClick={() => {}} className="delete-btn">
                     <Trash2 size={14} /> <span>Delete Account</span>
                   </button>
                 </div>
