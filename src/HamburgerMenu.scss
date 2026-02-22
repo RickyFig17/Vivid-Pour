@@ -2,65 +2,44 @@
   position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 1001;
+  z-index: 10001;
   background: none;
   border: none;
   cursor: pointer;
   padding: 5px;
 }
 
-.menu-backdrop {
+.dropdown-backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(4px);
   z-index: 10002;
 }
 
-.menu-drawer {
+.menu-dropdown {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 300px;
-  max-width: 80%;
-  height: 100vh;
-  background: rgba(15, 15, 20, 0.95);
+  top: 70px;
+  left: 20px;
+  width: 280px;
+  max-width: 90%;
+  background: rgba(15, 15, 20, 0.98); // Slightly more opaque for readability
   backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(0, 206, 209, 0.2);
+  border: 1px solid rgba(0, 206, 209, 0.3);
+  border-radius: 16px;
   z-index: 10003;
-  padding: 30px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 
-  .drawer-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 50px;
-
-    .vivid-logo {
-      color: #00ced1;
-      letter-spacing: 4px;
-      font-size: 1.5rem;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      color: #ff007f;
-    }
-  }
-
-  .drawer-links {
+  .dropdown-links {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 5px;
 
     button {
-      background: none;
+      background: transparent;
       border: none;
       display: flex;
       align-items: center;
@@ -68,15 +47,20 @@
       color: #fff;
       font-size: 1.1rem;
       cursor: pointer;
-      padding: 10px 0;
-      transition: color 0.3s ease;
+      padding: 12px 15px; // Larger hit area
+      width: 100%; // Fill the container
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-align: left;
 
-      &:hover {
+      svg {
         color: #00ced1;
       }
 
-      span {
-        letter-spacing: 1px;
+      &:hover {
+        background: rgba(0, 206, 209, 0.1);
+        color: #00ced1;
+        transform: translateX(5px);
       }
     }
 
@@ -87,43 +71,50 @@
       margin: 10px 0;
     }
   }
-}
 
-.auth-controls {
-  margin-top: auto;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-
-  button {
+  // Matching the JS class name 'dropdown-footer'
+  .dropdown-footer {
+    margin-top: 10px;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    background: none;
-    border: none;
-    font-size: 0.9rem;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 8px;
-    transition: 0.3s;
-  }
+    flex-direction: column;
+    gap: 5px;
 
-  .sign-out-btn {
-    color: #00ced1;
-    &:hover {
-      background: rgba(0, 206, 209, 0.1);
+    .divider {
+      border: 0;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 10px 0;
     }
-  }
 
-  .delete-account-btn {
-    color: #ff4d4d;
-    font-size: 0.8rem;
-    opacity: 0.7;
-    &:hover {
-      opacity: 1;
-      background: rgba(255, 77, 77, 0.1);
+    button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 15px;
+      width: 100%;
+      border-radius: 8px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: 0.2s;
+      text-align: left;
+    }
+
+    .sign-out-btn {
+      color: #00ced1;
+      &:hover {
+        background: rgba(0, 206, 209, 0.1);
+      }
+    }
+
+    .delete-btn {
+      color: #ff4d4d;
+      opacity: 0.7;
+      &:hover {
+        opacity: 1;
+        background: rgba(255, 77, 77, 0.1);
+      }
     }
   }
 }

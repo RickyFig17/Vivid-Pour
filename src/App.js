@@ -84,7 +84,6 @@ function App() {
 
   return (
     <div className="App">
-      <HamburgerMenu />
       <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <AnimatePresence mode="wait">
         {loading ? (
@@ -116,6 +115,7 @@ function App() {
             }}
           >
             <AuthProvider>
+              <HamburgerMenu />
               <Routes location={location}>
                 <Route path="/" element={<Home />} />
                 <Route
