@@ -11,10 +11,7 @@ import HamburgerMenu from "./HamburgerMenu";
 import Login from "./Login";
 import Favorites from "./Favorites";
 import { AuthProvider } from "./AuthContext";
-import History from "./History"; // adjust path as needed
-
-// Inside <Routes>
-<Route path="/history" element={<History />} />;
+import History from "./History";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -81,45 +78,43 @@ function App() {
   };
 
   const clearFavorites = () => {
-    if (window.confirm("Are you sure you want to clear all favorites?")) {
-      setFavorites([]);
-    }
+    setFavorites([]);
   };
 
   return (
     <div className="App">
-      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <AnimatePresence mode="wait">
-        {loading ? (
-          <SplashScreen key="splash" />
-        ) : (
-          <motion.div
-            key="main-content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          ></motion.div>
-        )}
-      </AnimatePresence>
-      <div
-        className="content-wrapper"
-        style={{ overflowX: "hidden", position: "relative" }}
-      >
-        <AnimatePresence custom={direction} mode="popLayout">
-          <motion.div
-            key={location.pathname}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { stiffness: 300, damping: 30 },
-              opacity: { duration: 0.3 },
-            }}
-          >
-            <AuthProvider>
-              <HamburgerMenu />
+      <AuthProvider>
+        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <HamburgerMenu />
+        <AnimatePresence mode="wait">
+          {loading ? (
+            <SplashScreen key="splash" />
+          ) : (
+            <motion.div
+              key="main-content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            ></motion.div>
+          )}
+        </AnimatePresence>
+        <div
+          className="content-wrapper"
+          style={{ overflowX: "hidden", position: "relative" }}
+        >
+          <AnimatePresence custom={direction} mode="popLayout">
+            <motion.div
+              key={location.pathname}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { stiffness: 300, damping: 30 },
+                opacity: { duration: 0.3 },
+              }}
+            >
               <Routes location={location}>
                 <Route path="/" element={<Home />} />
                 <Route path="/history" element={<History />} />
@@ -258,12 +253,11 @@ function App() {
                   }
                 />
               </Routes>
-            </AuthProvider>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      <BottomBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+        <BottomBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      </AuthProvider>
     </div>
   );
 }
