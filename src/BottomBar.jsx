@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { Home, Heart, Search, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { supabase } from "./supabaseClient";
+import { useAuthPrompt } from "./AuthContext";
 import UserAvatar from "./UserAvatar";
 import "./BottomBar.scss";
 
 const BottomBar = ({ searchTerm, setSearchTerm }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { user } = useAuthPrompt();
   const [showSearch, setShowSearch] = useState(false);
-  const [user, setUser] = useState(null);
 
   const handleSearchClick = () => {
     setShowSearch(true);
@@ -22,24 +23,12 @@ const BottomBar = ({ searchTerm, setSearchTerm }) => {
       navigate("/search");
     }
   };
-  React.useEffect(() => {
-    if (window.location.pathname !== "/search") {
-      setShowSearch(false);
-    }
-  }, [window.location.pathname]);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+    if (location.pathname !== "/search") {
+      setShowSearch(false);
+    }
+  }, [location.pathname]);
 
   return (
     <motion.nav
