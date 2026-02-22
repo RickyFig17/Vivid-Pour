@@ -11,6 +11,10 @@ import HamburgerMenu from "./HamburgerMenu";
 import Login from "./Login";
 import Favorites from "./Favorites";
 import { AuthProvider } from "./AuthContext";
+import History from "./History"; // adjust path as needed
+
+// Inside <Routes>
+<Route path="/history" element={<History />} />;
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -118,6 +122,7 @@ function App() {
               <HamburgerMenu />
               <Routes location={location}>
                 <Route path="/" element={<Home />} />
+                <Route path="/history" element={<History />} />
                 <Route
                   path="/favorites"
                   element={
