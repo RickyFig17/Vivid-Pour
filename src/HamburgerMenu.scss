@@ -23,7 +23,7 @@
   left: 20px;
   width: 280px;
   max-width: 90%;
-  background: rgba(15, 15, 20, 0.98); // Slightly more opaque for readability
+  background: rgba(15, 15, 20, 0.98);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(0, 206, 209, 0.3);
   border-radius: 16px;
@@ -47,8 +47,8 @@
       color: #fff;
       font-size: 1.1rem;
       cursor: pointer;
-      padding: 12px 15px; // Larger hit area
-      width: 100%; // Fill the container
+      padding: 12px 15px;
+      width: 100%;
       border-radius: 8px;
       transition: all 0.2s ease;
       text-align: left;
@@ -63,28 +63,29 @@
         transform: translateX(5px);
       }
     }
-
-    .divider {
-      border: 0;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.1);
-      margin: 10px 0;
-    }
   }
 
-  // Matching the JS class name 'dropdown-footer'
+  .divider {
+    width: 100%;
+    height: 1px;
+    margin: 15px 0;
+    display: block;
+
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(0, 206, 209, 0.5) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+
+    box-shadow: 0 0 5px rgba(0, 206, 209, 0.2);
+  }
+
   .dropdown-footer {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 5px;
-
-    .divider {
-      border: 0;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.1);
-      margin: 10px 0;
-    }
 
     button {
       display: flex;
@@ -116,5 +117,96 @@
         background: rgba(255, 77, 77, 0.1);
       }
     }
+  }
+
+  .menu-user-header {
+    margin-bottom: 10px;
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 5px;
+
+      .text-group {
+        display: flex;
+        flex-direction: column;
+
+        .welcome {
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.5);
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+
+        .user-name {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #00ced1;
+          text-shadow: 0 0 10px rgba(0, 206, 209, 0.3);
+        }
+      }
+    }
+
+    .guest-info p {
+      color: #00ced1;
+      font-weight: 500;
+      padding-left: 10px;
+    }
+  }
+
+  .dropdown-footer {
+    .confirm-logout-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 15px;
+
+      span {
+        font-size: 0.9rem;
+        color: #ff4d4d;
+        font-weight: 600;
+      }
+
+      button {
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        width: auto;
+      }
+
+      .confirm-yes {
+        background: #ff4d4d;
+        color: white;
+      }
+
+      .confirm-no {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+    }
+  }
+}
+
+.user-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(0, 206, 209, 0.2);
+  border: 1px solid rgba(0, 206, 209, 0.3);
+
+  svg {
+    color: #00ced1;
+    filter: drop-shadow(0 0 5px rgba(0, 206, 209, 0.8));
+  }
+
+  &:hover {
+    background: rgba(0, 206, 209, 0.2);
+    border-color: #00ced1;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
   }
 }
