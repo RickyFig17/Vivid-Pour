@@ -16,7 +16,7 @@ import { supabase } from "./supabaseClient";
 import { useAuthPrompt } from "./AuthContext";
 import "./HamburgerMenu.scss";
 
-const HamburgerMenu = () => {
+const HamburgerMenu = ({ isAppReady }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSignOutConfirm, setShowSignOutConfirm] = useState(false);
   const navigate = useNavigate();
@@ -47,14 +47,43 @@ const HamburgerMenu = () => {
     navigate("/");
   };
 
+  if (!isAppReady) return null;
+
   return (
-    <div className="hamburger-container">
-      <button className="hamburger-trigger" onClick={toggleMenu}>
-        {isOpen ? (
-          <X size={32} color="#00ced1" />
-        ) : (
-          <Menu size={32} color="#00ced1" />
-        )}
+    <div
+      className="hamburger-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <button
+        className="hamburger-trigger"
+        onClick={toggleMenu}
+        style={{ zIndex: 10005 }}
+      >
+        <AnimatePresence mode="wait">
+          {isOpen ? (
+            <motion.div
+              key="close"
+              initial={{ opacity: 0, rotate: 0 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              exit={{ opacity: 0, rotate: 90 }}
+              transition={{ duration: 0.1 }}
+            >
+              <X size={32} color="#00ced1" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="menu"
+              initial={{ opacity: 0, rotate: 0 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              exit={{ opacity: 0, rotate: -90 }}
+              transition={{ duration: 0.1 }}
+            >
+              <Menu size={32} color="#00ced1" />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </button>
 
       <AnimatePresence>
@@ -65,6 +94,7 @@ const HamburgerMenu = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, delay: 0.05 }}
               onClick={toggleMenu}
             />
 
@@ -79,7 +109,7 @@ const HamburgerMenu = () => {
               }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: -10 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
+              transition={{ duration: 0.2, ease: "easeOut", delay: 0.1 }}
             >
               <div className="menu-user-header">
                 {user ? (

@@ -20,6 +20,7 @@ function App() {
   const [prevPath, setPrevPath] = useState(location.pathname);
   const [searchTerm, setSearchTerm] = useState("");
   const [favorites, setFavorites] = useState([]);
+  const [isAppReady, setIsAppReady] = useState(false);
 
   const pathOrder = [
     "/",
@@ -50,6 +51,13 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname, prevPath]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsAppReady(true);
+    }, 2640);
+    return () => clearTimeout(timer);
+  }, []);
 
   const variants = {
     enter: (direction) => ({
@@ -85,7 +93,7 @@ function App() {
     <div className="App">
       <AuthProvider>
         <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <HamburgerMenu />
+        <HamburgerMenu isAppReady={isAppReady} />
         <AnimatePresence mode="wait">
           {loading ? (
             <SplashScreen key="splash" />
