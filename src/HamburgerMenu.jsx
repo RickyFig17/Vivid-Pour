@@ -128,7 +128,7 @@ const HamburgerMenu = ({ isAppReady }) => {
                   </div>
                 ) : (
                   <div className="guest-info">
-                    <p>Welcome to Vivid</p>
+                    <p>Welcome to Vivid Pour</p>
                   </div>
                 )}
               </div>
