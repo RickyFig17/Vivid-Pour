@@ -21,6 +21,7 @@ const HamburgerMenu = () => {
   const [showSignOutConfirm, setShowSignOutConfirm] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuthPrompt();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -34,6 +35,14 @@ const HamburgerMenu = () => {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
+    setIsOpen(false);
+    navigate("/");
+  };
+
+  const handleDeleteAccount = async () => {
+    console.log("Account deleted");
+    await supabase.auth.signOut();
+    setShowDeleteModal(false);
     setIsOpen(false);
     navigate("/");
   };
@@ -75,7 +84,11 @@ const HamburgerMenu = () => {
               <div className="menu-user-header">
                 {user ? (
                   <div className="profile-info">
-                    <User className="user-avatar" name={user.user_metadata?.full_name} size="48px" />
+                    <User
+                      className="user-avatar"
+                      name={user.user_metadata?.full_name}
+                      size="48px"
+                    />
                     <div className="text-group">
                       <span className="welcome">Cheers,</span>
                       <span className="user-name">
@@ -107,12 +120,12 @@ const HamburgerMenu = () => {
 
                 {!user && (
                   <>
-                    <hr className="divider" />
+                    <div className="divider" />
                     <button onClick={() => handleNav("/login", "signin")}>
                       <LogIn size={18} /> <span>Sign In</span>
                     </button>
                     <button onClick={() => handleNav("/login", "signup")}>
-                      <User size={18} /> <span>Join the Club</span>
+                      <User size={18} /> <span>Sign Up</span>
                     </button>
                   </>
                 )}
@@ -121,46 +134,97 @@ const HamburgerMenu = () => {
               {user && (
                 <div className="dropdown-footer">
                   <div className="divider" />
-
-                  <AnimatePresence mode="wait">
-                    {!showSignOutConfirm ? (
-                      <motion.button
-                        key="logout-main"
-                        onClick={() => setShowSignOutConfirm(true)}
-                        className="sign-out-btn"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                  {!showSignOutConfirm ? (
+                    <motion.button
+                      key="logout-main"
+                      onClick={() => setShowSignOutConfirm(true)}
+                      className="sign-out-btn"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <LogOut size={16} /> <span>Sign Out</span>
+                    </motion.button>
+                  ) : (
+                    <motion.div
+                      key="logout-confirm"
+                      className="confirm-logout-row"
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -10 }}
+                    >
+                      <span>Sure?</span>
+                      <button className="confirm-yes" onClick={handleSignOut}>
+                        Yes
+                      </button>
+                      <button
+                        className="confirm-no"
+                        onClick={() => setShowSignOutConfirm(false)}
                       >
-                        <LogOut size={16} /> <span>Sign Out</span>
-                      </motion.button>
-                    ) : (
-                      <motion.div
-                        key="logout-confirm"
-                        className="confirm-logout-row"
-                        initial={{ opacity: 0, x: 10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -10 }}
-                      >
-                        <span>Sure?</span>
-                        <button className="confirm-yes" onClick={handleSignOut}>
-                          Yes
-                        </button>
-                        <button
-                          className="confirm-no"
-                          onClick={() => setShowSignOutConfirm(false)}
-                        >
-                          No
-                        </button>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  <button onClick={() => {}} className="delete-btn">
+                        No
+                      </button>
+                    </motion.div>
+                  )}
+                  <button
+                    onClick={() => setShowDeleteModal(true)}
+                    className="delete-btn"
+                  >
                     <Trash2 size={14} /> <span>Delete Account</span>
                   </button>
                 </div>
               )}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showDeleteModal && (
+          <>
+            <motion.div
+              className="modal-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setShowDeleteModal(false)}
+            />
+            <motion.div
+              className="delete-modal"
+              initial={{ scale: 0.9, opacity: 0, x: "-50%", y: "-50%" }}
+              animate={{ scale: 1, opacity: 1, x: "-50%", y: "-50%" }}
+              exit={{
+                scale: 0.8,
+                opacity: 0,
+                x: "-50%",
+                y: "-40%", // Slight slide down on exit
+                transition: { duration: 0.2, ease: "easeIn" },
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 25,
+              }}
+            >
+              <h3>Delete Account?</h3>
+              <p>
+                This will permanently erase your favorites and cocktail history.
+                This action cannot be undone.
+              </p>
+
+              <div className="modal-actions">
+                <button
+                  className="cancel-btn"
+                  onClick={() => setShowDeleteModal(false)}
+                >
+                  Keep My Bar
+                </button>
+                <button
+                  className="confirm-delete-btn"
+                  onClick={handleDeleteAccount}
+                >
+                  Delete Everything
+                </button>
+              </div>
             </motion.div>
           </>
         )}
