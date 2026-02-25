@@ -15,17 +15,18 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "./supabaseClient";
 import { useAuthPrompt } from "./AuthContext";
 import "./HamburgerMenu.scss";
+import Modal from "./Modal";
 
 const HamburgerMenu = ({ isAppReady }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [showSignOutConfirm, setShowSignOutConfirm] = useState(false);
+  const [showSignOutModal, setShowSignOutModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuthPrompt();
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    setShowSignOutConfirm(false);
+    setShowSignOutModal(false);
   };
 
   const handleNav = (path, mode) => {
@@ -164,37 +165,13 @@ const HamburgerMenu = ({ isAppReady }) => {
               {user && (
                 <div className="dropdown-footer">
                   <div className="divider" />
-                  {!showSignOutConfirm ? (
-                    <motion.button
-                      key="logout-main"
-                      onClick={() => setShowSignOutConfirm(true)}
-                      className="sign-out-btn"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      <LogOut size={16} /> <span>Sign Out</span>
-                    </motion.button>
-                  ) : (
-                    <motion.div
-                      key="logout-confirm"
-                      className="confirm-logout-row"
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -10 }}
-                    >
-                      <span>Sure?</span>
-                      <button className="confirm-yes" onClick={handleSignOut}>
-                        Yes
-                      </button>
-                      <button
-                        className="confirm-no"
-                        onClick={() => setShowSignOutConfirm(false)}
-                      >
-                        No
-                      </button>
-                    </motion.div>
-                  )}
+                  <button
+                    onClick={() => setShowSignOutModal(true)}
+                    className="sign-out-btn"
+                  >
+                    <LogOut size={16} /> <span>Sign Out</span>
+                  </button>
+
                   <button
                     onClick={() => setShowDeleteModal(true)}
                     className="delete-btn"
@@ -207,58 +184,31 @@ const HamburgerMenu = ({ isAppReady }) => {
           </>
         )}
       </AnimatePresence>
-      <AnimatePresence>
-        {showDeleteModal && (
-          <>
-            <motion.div
-              className="modal-backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setShowDeleteModal(false)}
-            />
-            <motion.div
-              className="delete-modal"
-              initial={{ scale: 0.9, opacity: 0, x: "-50%", y: "-50%" }}
-              animate={{ scale: 1, opacity: 1, x: "-50%", y: "-50%" }}
-              exit={{
-                scale: 0.8,
-                opacity: 0,
-                x: "-50%",
-                y: "-40%", // Slight slide down on exit
-                transition: { duration: 0.2, ease: "easeIn" },
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 25,
-              }}
-            >
-              <h3>Delete Account?</h3>
-              <p>
-                This will permanently erase your favorites and cocktail history.
-                This action cannot be undone.
-              </p>
+      <Modal
+        isOpen={showSignOutModal}
+        onClose={() => setShowSignOutModal(false)}
+        onConfirm={handleSignOut}
+        title="Closing the Bar?"
+        confirmText="Sign Out"
+      >
+        <p>
+          Are you sure you want to log out? Your favorites will be waiting for
+          you.
+        </p>
+      </Modal>
 
-              <div className="modal-actions">
-                <button
-                  className="cancel-btn"
-                  onClick={() => setShowDeleteModal(false)}
-                >
-                  Keep My Bar
-                </button>
-                <button
-                  className="confirm-delete-btn"
-                  onClick={handleDeleteAccount}
-                >
-                  Delete Everything
-                </button>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={handleDeleteAccount}
+        title="Delete Account?"
+        confirmText="Delete Everything"
+        type="danger"
+      >
+        <p>
+          This will permanently erase your bar history. This cannot be undone.
+        </p>
+      </Modal>
     </div>
   );
 };
