@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { Home, Heart, Search, User } from "lucide-react";
+import { Home, Heart, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAuthPrompt } from "./AuthContext";
-import UserAvatar from "./UserAvatar";
 import "./BottomBar.scss";
 
 const BottomBar = ({ searchTerm, setSearchTerm }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user } = useAuthPrompt();
   const [showSearch, setShowSearch] = useState(false);
 
   const handleSearchClick = () => {
@@ -99,15 +96,6 @@ const BottomBar = ({ searchTerm, setSearchTerm }) => {
         >
           <Heart size={24} strokeWidth={1.5} />
           <span className="label">Favorites</span>
-        </NavLink>
-
-        <NavLink to={user ? "/profile" : "/login"} className="nav-item">
-          {user ? (
-            <UserAvatar name={user.user_metadata?.full_name} size="28px" />
-          ) : (
-            <User size={24} />
-          )}
-          <span className="label">{user ? "Profile" : "Sign In"}</span>
         </NavLink>
 
         <button
