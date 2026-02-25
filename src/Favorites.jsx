@@ -9,58 +9,56 @@ function Favorites({ favorites, onToggle, onClear }) {
   return (
     <div className="category-page">
       <div className="favorites-header">
-        <div className="favorites-header">
-          <motion.h2
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            Your Favorites
-          </motion.h2>
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          Your Favorites
+        </motion.h2>
 
-          {favorites.length > 0 && (
-            <div className="clear-controls">
-              <AnimatePresence mode="wait">
-                {!showConfirm ? (
-                  <motion.button
-                    key="clear-btn"
-                    className="clear-all-btn"
-                    onClick={() => setShowConfirm(true)}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+        {favorites.length > 0 && (
+          <div className="clear-controls">
+            <AnimatePresence mode="wait">
+              {!showConfirm ? (
+                <motion.button
+                  key="clear-btn"
+                  className="clear-all-btn"
+                  onClick={() => setShowConfirm(true)}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  Clear All
+                </motion.button>
+              ) : (
+                <motion.div
+                  key="confirm-wrap"
+                  className="confirm-wrapper"
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                >
+                  <span>Are you sure?</span>
+                  <button
+                    className="yes-btn"
+                    onClick={() => {
+                      onClear();
+                      setShowConfirm(false);
+                    }}
                   >
-                    Clear All
-                  </motion.button>
-                ) : (
-                  <motion.div
-                    key="confirm-wrap"
-                    className="confirm-wrapper"
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.9, opacity: 0 }}
+                    Yes
+                  </button>
+                  <button
+                    className="no-btn"
+                    onClick={() => setShowConfirm(false)}
                   >
-                    <span>Are you sure?</span>
-                    <button
-                      className="yes-btn"
-                      onClick={() => {
-                        onClear();
-                        setShowConfirm(false);
-                      }}
-                    >
-                      Yes
-                    </button>
-                    <button
-                      className="no-btn"
-                      onClick={() => setShowConfirm(false)}
-                    >
-                      No
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )}
-        </div>
+                    No
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
       </div>
 
       <div className="cocktail-list">
