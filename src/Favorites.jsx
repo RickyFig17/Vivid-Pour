@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import FavoriteButton from "./FavoriteButton";
+import { Trash2 } from "lucide-react";
 import "./Favorites.scss";
 import Modal from "./Modal";
 
@@ -29,6 +30,7 @@ function Favorites({ favorites, allCocktails, onToggle, onClear, user }) {
               className="clear-all-btn"
               onClick={() => setShowClearModal(true)}
             >
+              <Trash2 size={16} className="trash2" />
               Clear All
             </button>
           </div>
@@ -60,10 +62,7 @@ function Favorites({ favorites, allCocktails, onToggle, onClear, user }) {
             {user ? (
               <>
                 <p>You haven't saved any drinks yet!</p>
-                <button
-                  onClick={() => navigate("/")}
-                  className="explore-btn"
-                >
+                <button onClick={() => navigate("/")} className="explore-btn">
                   Go Explore
                 </button>
               </>

@@ -25,12 +25,14 @@ function CocktailCategory({ type, title, searchTerm, favorites, onToggle }) {
 
   return (
     <div className="category-page">
-      <motion.h2
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-      >
-        {title}
-      </motion.h2>
+      <div className="category-header">
+        <motion.h2
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+        >
+          {title || type.replace("-", " ")}
+        </motion.h2>
+      </div>
 
       <div className="cocktail-list">
         {filteredDrinks.length > 0 ? (
