@@ -319,7 +319,7 @@ function App() {
                   element={
                     <CocktailCategory
                       type="sour"
-                      title="Sours"
+                      title="Sours & Margaritas"
                       searchTerm={searchTerm}
                       favorites={favorites}
                       onToggle={toggleFavorite}

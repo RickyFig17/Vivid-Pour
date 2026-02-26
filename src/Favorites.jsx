@@ -16,6 +16,7 @@ function Favorites({ favorites, allCocktails, onToggle, onClear, user }) {
 
   return (
     <div className="category-page">
+      {/* CLEAN HEADER STRUCTURE */}
       <div className="favorites-header">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
@@ -24,17 +25,17 @@ function Favorites({ favorites, allCocktails, onToggle, onClear, user }) {
           Your Favorites
         </motion.h2>
 
-        {user && favoriteCocktails.length > 0 && (
-          <div className="clear-controls">
+        <div className="clear-controls">
+          {user && favoriteCocktails.length > 0 && (
             <button
               className="clear-all-btn"
               onClick={() => setShowClearModal(true)}
             >
-              <Trash2 size={16} className="trash2" />
-              Clear All
+              <Trash2 size={16} />
+              <span>Clear All</span>
             </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       <div className="cocktail-list">
@@ -44,9 +45,7 @@ function Favorites({ favorites, allCocktails, onToggle, onClear, user }) {
               <div className="list-thumbnail">
                 <img src={cocktail.image} alt={cocktail.name} />
               </div>
-
               <h3>{cocktail.name}</h3>
-
               <div className="card-fav-container">
                 <FavoriteButton
                   cocktail={cocktail}
@@ -58,7 +57,6 @@ function Favorites({ favorites, allCocktails, onToggle, onClear, user }) {
           ))
         ) : (
           <div className="no-favs">
-            {/* 1. Logic for Authenticated Users with empty lists */}
             {user ? (
               <>
                 <p>You haven't saved any drinks yet!</p>
@@ -67,7 +65,6 @@ function Favorites({ favorites, allCocktails, onToggle, onClear, user }) {
                 </button>
               </>
             ) : (
-              /* 2. Logic for Guests (Not Signed In) */
               <>
                 <p>Sign in to start saving your favorite cocktails!</p>
                 <button
