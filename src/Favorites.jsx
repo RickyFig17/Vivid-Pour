@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import FavoriteButton from "./FavoriteButton";
 import "./Favorites.scss";
 import Modal from "./Modal";
 
-function Favorites({ favorites, onToggle, onClear }) {
-  // const [showConfirm, setShowConfirm] = useState(false);
+function Favorites({ favorites, allCocktails, onToggle, onClear }) {
   const [showClearModal, setShowClearModal] = useState(false);
+
+  const favoriteCocktails = allCocktails.filter((cocktail) =>
+    favorites.includes(cocktail.id),
+  );
+
   return (
     <div className="category-page">
       <div className="favorites-header">
@@ -17,7 +21,7 @@ function Favorites({ favorites, onToggle, onClear }) {
           Your Favorites
         </motion.h2>
 
-        {favorites.length > 0 && (
+        {favoriteCocktails.length > 0 && (
           <div className="clear-controls">
             <button
               className="clear-all-btn"
@@ -30,8 +34,8 @@ function Favorites({ favorites, onToggle, onClear }) {
       </div>
 
       <div className="cocktail-list">
-        {favorites && favorites.length > 0 ? (
-          favorites.map((cocktail) => (
+        {favoriteCocktails.length > 0 ? (
+          favoriteCocktails.map((cocktail) => (
             <motion.div key={cocktail.id} className="cocktail-card" layout>
               <div className="list-thumbnail">
                 <img src={cocktail.image} alt={cocktail.name} />
@@ -60,6 +64,7 @@ function Favorites({ favorites, onToggle, onClear }) {
           </div>
         )}
       </div>
+
       <Modal
         isOpen={showClearModal}
         onClose={() => setShowClearModal(false)}

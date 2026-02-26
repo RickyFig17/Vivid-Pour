@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { supabase } from "./supabaseClient";
 import Home from "./Home";
 import Header from "./Header";
 import SplashScreen from "./SplashScreen";
@@ -12,6 +13,7 @@ import Login from "./Login";
 import Favorites from "./Favorites";
 import { AuthProvider } from "./AuthContext";
 import History from "./History";
+import cocktailData from "./Cocktails.json";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -59,6 +61,56 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  const fetchFavorites = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      const { data, error } = await supabase
+        .from("favorites")
+        .select("cocktail_id")
+        .eq("user_id", user.id);
+
+      if (error) {
+        console.error("Error fetching favorites:", error.message);
+      } else if (data) {
+        const favoriteIds = data.map((fav) => fav.cocktail_id);
+        setFavorites(favoriteIds);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const initSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (session?.user) {
+        fetchFavorites();
+      } else {
+        setFavorites([]);
+      }
+    };
+
+    initSession();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session?.user) {
+        fetchFavorites();
+      } else {
+        setFavorites([]);
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
   const variants = {
     enter: (direction) => ({
       x: direction > 0 ? "100%" : "-100%",
@@ -74,19 +126,52 @@ function App() {
     }),
   };
 
-  const toggleFavorite = (cocktail) => {
-    setFavorites((prev) => {
-      const isAlreadyFav = prev.find((fav) => fav.id === cocktail.id);
-      if (isAlreadyFav) {
-        return prev.filter((fav) => fav.id !== cocktail.id);
+  const toggleFavorite = async (cocktail) => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    const isAlreadyFav = favorites.includes(cocktail.id);
+
+    if (isAlreadyFav) {
+      const { error } = await supabase
+        .from("favorites")
+        .delete()
+        .eq("user_id", user.id)
+        .eq("cocktail_id", cocktail.id);
+
+      if (!error) {
+        setFavorites((prev) => prev.filter((id) => id !== cocktail.id));
       } else {
-        return [...prev, cocktail];
+        console.error("Error deleting favorite:", error.message);
       }
-    });
+    } else {
+      const { error } = await supabase
+        .from("favorites")
+        .insert([{ user_id: user.id, cocktail_id: cocktail.id }]);
+
+      if (!error) {
+        setFavorites((prev) => [...prev, cocktail.id]);
+      } else {
+        console.error("Error adding favorite:", error.message);
+      }
+    }
   };
 
-  const clearFavorites = () => {
-    setFavorites([]);
+  const clearFavorites = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const { error } = await supabase
+      .from("favorites")
+      .delete()
+      .eq("user_id", user.id);
+
+    if (!error) {
+      setFavorites([]);
+    }
   };
 
   return (
@@ -131,6 +216,7 @@ function App() {
                   element={
                     <Favorites
                       favorites={favorites}
+                      allCocktails={cocktailData}
                       onToggle={toggleFavorite}
                       onClear={clearFavorites}
                     />
