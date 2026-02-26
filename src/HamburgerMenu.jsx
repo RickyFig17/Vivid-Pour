@@ -36,16 +36,24 @@ const HamburgerMenu = ({ isAppReady }) => {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
+    setShowSignOutModal(false);
     setIsOpen(false);
     navigate("/");
   };
 
   const handleDeleteAccount = async () => {
-    console.log("Account deleted");
-    await supabase.auth.signOut();
-    setShowDeleteModal(false);
-    setIsOpen(false);
-    navigate("/");
+    const { error } = await supabase.rpc("delete_user");
+
+    if (error) {
+      console.error("Error deleting account:", error.message);
+      alert("Could not delete account. Please try again.");
+    } else {
+      console.log("Account deleted successfully");
+      await supabase.auth.signOut();
+      setShowDeleteModal(false);
+      setIsOpen(false);
+      navigate("/");
+    }
   };
 
   if (!isAppReady) return null;

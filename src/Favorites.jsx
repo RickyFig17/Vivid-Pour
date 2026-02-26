@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import FavoriteButton from "./FavoriteButton";
 import "./Favorites.scss";
 import Modal from "./Modal";
 
-function Favorites({ favorites, allCocktails, onToggle, onClear }) {
+function Favorites({ favorites, allCocktails, onToggle, onClear, user }) {
   const [showClearModal, setShowClearModal] = useState(false);
+  const navigate = useNavigate();
 
   const favoriteCocktails = allCocktails.filter((cocktail) =>
     favorites.includes(cocktail.id),
@@ -21,7 +23,7 @@ function Favorites({ favorites, allCocktails, onToggle, onClear }) {
           Your Favorites
         </motion.h2>
 
-        {favoriteCocktails.length > 0 && (
+        {user && favoriteCocktails.length > 0 && (
           <div className="clear-controls">
             <button
               className="clear-all-btn"
@@ -54,13 +56,29 @@ function Favorites({ favorites, allCocktails, onToggle, onClear }) {
           ))
         ) : (
           <div className="no-favs">
-            <p>You haven't saved any drinks yet!</p>
-            <button
-              onClick={() => window.history.back()}
-              className="explore-btn"
-            >
-              Go Explore
-            </button>
+            {/* 1. Logic for Authenticated Users with empty lists */}
+            {user ? (
+              <>
+                <p>You haven't saved any drinks yet!</p>
+                <button
+                  onClick={() => navigate("/")}
+                  className="explore-btn"
+                >
+                  Go Explore
+                </button>
+              </>
+            ) : (
+              /* 2. Logic for Guests (Not Signed In) */
+              <>
+                <p>Sign in to start saving your favorite cocktails!</p>
+                <button
+                  onClick={() => navigate("/login")}
+                  className="explore-btn sign-in-btn"
+                >
+                  Sign In / Create Account
+                </button>
+              </>
+            )}
           </div>
         )}
       </div>

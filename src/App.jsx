@@ -23,6 +23,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [favorites, setFavorites] = useState([]);
   const [isAppReady, setIsAppReady] = useState(false);
+  const [user, setUser] = useState(null);
 
   const pathOrder = [
     "/",
@@ -86,6 +87,7 @@ function App() {
       const {
         data: { session },
       } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
 
       if (session?.user) {
         fetchFavorites();
@@ -99,6 +101,7 @@ function App() {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
+      setUser(session?.user ?? null);
       if (session?.user) {
         fetchFavorites();
       } else {
@@ -219,6 +222,7 @@ function App() {
                       allCocktails={cocktailData}
                       onToggle={toggleFavorite}
                       onClear={clearFavorites}
+                      user={user}
                     />
                   }
                 />
