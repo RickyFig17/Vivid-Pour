@@ -5,7 +5,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Lock the app to exactly the screen height */
+  height: 100vh;
   overflow: hidden;
 }
 
@@ -24,22 +24,16 @@
 
 .content-wrapper {
   width: 100%;
-  min-height: calc(100vh - 120px); /* Adjust based on your header height */
-  flex: 1; /* Automatically takes up the rest of the height */
-  overflow-y: auto; /* This becomes your one and only vertical scrollbar */
+  min-height: calc(100vh - 120px);
+  flex: 1;
+  overflow-y: auto;
   position: relative;
 }
 
-/* Ensure the motion div takes up full space */
 .content-wrapper > div {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  /* This ensures the content stays centered regardless of the slide */
-  /* display: flex;
-  justify-content: center; 
-  align-items: center;
-  flex-direction: column; */
   min-height: 100%;
 }

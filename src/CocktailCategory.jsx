@@ -15,6 +15,14 @@ function CocktailCategory({ type, title, searchTerm, favorites, onToggle }) {
       drink.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
+  useEffect(() => {
+    const scrollContainer = document.querySelector(".content-wrapper");
+
+    if (scrollContainer) {
+      scrollContainer.scrollTo(0, 0);
+    }
+  }, [type]);
+
   return (
     <div className="category-page">
       <motion.h2
