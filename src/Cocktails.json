@@ -1742,5 +1742,35 @@
     "glass": "Flute/Fancy",
     "mixingMethod": "Pour",
     "garnish": "none"
+  },
+  {
+    "id": "sangria",
+    "type": "wine-cocktail",
+    "name": "Sangria",
+    "image": "images/Wine-Cocktails/Sangria.png",
+    "alcohol": "N/A",
+    "alcohol1": "1/2 Red Wine",
+    "alcohol2": "1/4 Orange Liqueur (Cointreau)",
+    "filler": "Fruits (Oranges, Lemons, Limes, Apples)",
+    "filler1": "N/A",
+    "filler2": "N/A",
+    "glass": "Wine",
+    "mixingMethod": "Pour",
+    "garnish": "Orange Slice"
+  },
+  {
+    "id": "french75",
+    "type": "wine-cocktail",
+    "name": "French 75",
+    "image": "images/Wine-Cocktails/French75.png",
+    "alcohol": "N/A",
+    "alcohol1": "1oz Gin",
+    "alcohol2": "2oz Champagne",
+    "filler": "N/A",
+    "filler1": "1/2oz Lemon Juice",
+    "filler2": "1/2oz Simple Syrup",
+    "glass": "Flute/Fancy",
+    "mixingMethod": "Shake Gin, Lemon Juice & Simple Syrup then pour in a flute glass, top with Champagne",
+    "garnish": "Lemon Peel"
   }
 ]
